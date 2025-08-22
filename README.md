@@ -1,6 +1,12 @@
-# Multi-Factorial Evolutionary Algorithm (MFEA) for TSP and TRP
+# Multi-Factorial Evolutionary Algorithm (MFEA)
 
-## Algorithm Innovation: Hybrid MFEA+GLS+FLS
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![C++](https://img.shields.io/badge/C++-11-blue.svg)](https://en.cppreference.com/)
+[![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg)](https://github.com/Nemztran/Multifactorial-Evolutionary-Algorithm)
+
+> **Advanced evolutionary algorithm for simultaneous optimization of TSP and TRP problems**
+
+## 🚀 Algorithm Innovation: Hybrid MFEA+GLS+FLS
 
 ### **Enhanced Version Available**
 The `/GLS` directory contains an **innovative hybrid algorithm** that combines:
@@ -18,24 +24,59 @@ See `/GLS/README.md` for detailed documentation of this innovation.
 
 ---
 
-## Standard MFEA Implementation
+## 📋 Table of Contents
 
-This repository implements the **Multi-Factorial Evolutionary Algorithm (MFEA)** to solve two optimization problems simultaneously:
+- [Features](#-features)
+- [Quick Start](#-quick-start)
+- [Algorithm Details](#-algorithm-details)
+- [Input/Output Format](#-inputoutput-format)
+- [Usage Examples](#-usage-examples)
+- [Performance](#-performance)
+- [Contributing](#-contributing)
+- [License](#-license)
 
-1. **TSP (Traveling Salesman Problem)**: Find the shortest tour that visits all cities exactly once
+## ✨ Features
+
+- **🎯 Multi-task optimization**: Single population solves both problems concurrently
+- **🔄 Knowledge transfer**: Solutions share information across tasks to improve efficiency
+- **⚡ Adaptive skill factor**: Each individual specializes in optimal task
+- **🧬 Advanced operators**: Simulated Binary Crossover (SBX) for robust evolution
+- **📊 Rank-based selection**: Maintains diversity while promoting convergence
+
+## 🚀 Quick Start
+
+### Prerequisites
+```bash
+# C++11 or later
+g++ --version
+```
+
+### Installation
+```bash
+# Clone the repository
+git clone https://github.com/Nemztran/Multifactorial-Evolutionary-Algorithm.git
+cd Multifactorial-Evolutionary-Algorithm
+
+# Compile
+make
+
+# Or manually:
+g++ -std=c++11 -O2 TRP__TSP.cpp -o mfea
+```
+
+### Run Example
+```bash
+./mfea < input_example.txt
+```
+
+## 🔬 Algorithm Details
+
+### 🎯 Problem Domains
+
+1. **TSP (Traveling Salesman Problem)**: Find the shortest tour visiting all cities exactly once
 2. **TRP (Time Routing Problem)**: Optimize cumulative travel time routing
 
-## Algorithm Features
-
-- **Multi-task optimization**: Single population solves both problems concurrently
-- **Knowledge transfer**: Solutions share information across tasks to improve optimization efficiency
-- **Adaptive skill factor**: Each individual specializes in the task where it performs best
-- **Simulated Binary Crossover (SBX)**: Robust crossover operator for real-valued genes
-- **Rank-based selection**: Maintains diversity while promoting good solutions
-
-## Technical Details
-
-### Algorithm Parameters
+### ⚙️ Algorithm Parameters
 - Population size: 200
 - Maximum generations: 300
 - Random mating probability (RMP): 0.4
@@ -65,7 +106,7 @@ struct Individual {
 - **Mutation**: Gaussian perturbation with bounds checking
 - **Selection**: Elitist selection based on scalar fitness
 
-## Input Format
+## 📥 Input/Output Format
 
 ```
 <TSP_dimension> <TRP_dimension>
@@ -85,76 +126,66 @@ struct Individual {
 8 12 0
 ```
 
-## Output Format
+## 💻 Usage Examples
 
-```
-<best_TSP_cost> <best_TRP_cost>
-```
-
-## Compilation and Usage
-
-### Prerequisites
-- C++11 or later
-- Standard library support for `<random>`, `<algorithm>`, etc.
-
-### Compilation
+### Basic Usage
 ```bash
-g++ -std=c++11 -O2 TRP__TSP.cpp -o mfea
+# Run with provided example
+./mfea < input_example.txt
+
+# Expected output format
+# 85.5 42.3
 ```
 
-### Execution
+### Custom Input
 ```bash
-./mfea < input.txt
+# Create your own input file
+echo "3 3
+0 10 20
+10 0 15
+20 15 0
+0 5 8
+5 0 12
+8 12 0" > my_input.txt
+
+./mfea < my_input.txt
 ```
 
-## Algorithm Workflow
+## 📊 Performance
 
-1. **Initialization**: Generate random population, evaluate on both tasks
-2. **Evolution Loop**:
-   - **Parent Selection**: Random selection from population
-   - **Reproduction**: 
-     - If same skill or random < RMP: Apply crossover
-     - Otherwise: Apply mutation only
-   - **Evaluation**: Evaluate offspring on inherited skill task
-   - **Environmental Selection**: Combine populations, select best individuals
-3. **Termination**: Output best solutions found for each task
+- **⚡ Convergence**: Typically converges within 200-300 generations
+- **📈 Scalability**: Handles problems with different dimensions efficiently  
+- **🎯 Robustness**: Maintains solution quality across multiple runs
+- **🔄 Knowledge Transfer**: Cross-task learning improves overall performance
 
-## Key Innovation: Knowledge Transfer
+## 🤝 Contributing
 
-The MFEA enables knowledge transfer between tasks through:
-- **Shared representation**: Single chromosome encodes solutions for both problems
-- **Cross-task mating**: Individuals from different tasks can reproduce
-- **Implicit transfer**: Good building blocks discovered for one task may benefit the other
+We welcome contributions! Please feel free to submit a Pull Request.
 
-## Performance Characteristics
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-- **Convergence**: Typically converges within 200-300 generations
-- **Scalability**: Handles problems with different dimensions efficiently
-- **Robustness**: Maintains solution quality across multiple runs
-
-## File Structure
-
-```
-MFEA/
-├── TRP__TSP.cpp          # Main implementation
-├── README.md             # This documentation
-├── Makefile              # Build configuration
-├── input_example.txt     # Sample input
-└── results/              # Output directory
-```
-
-## References
+## 📚 References
 
 1. Gupta, A., Ong, Y. S., & Feng, L. (2016). Multifactorial evolution: toward evolutionary multitasking. IEEE transactions on evolutionary computation, 20(3), 343-357.
 
 2. Bali, K. K., Ong, Y. S., Gupta, A., & Tan, P. S. (2017). Multifactorial evolutionary algorithm with online transfer parameter estimation: MFEA-II. IEEE Transactions on Evolutionary Computation, 24(1), 69-83.
 
-## License
+## 📄 License
 
-This project is developed for educational purposes as part of IT3020 - Discrete Optimization course.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Author
+## 👨‍💻 Author
 
-Tran Dinh Nam  
-Hanoi University of Science and Technology 
-22 August 2025
+**Tran Dinh Nam**  
+Hanoi University of Science and Technology  
+📧 Contact: [GitHub](https://github.com/Nemztran)
+
+---
+
+<div align="center">
+  <strong>⭐ Star this repository if you find it helpful!</strong>
+</div>
