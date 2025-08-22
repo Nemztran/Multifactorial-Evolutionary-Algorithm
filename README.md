@@ -1,6 +1,24 @@
 # Multi-Factorial Evolutionary Algorithm (MFEA) for TSP and TRP
 
-## Overview
+## Algorithm Innovation: Hybrid MFEA+GLS+FLS
+
+### **Enhanced Version Available**
+The `/GLS` directory contains an **innovative hybrid algorithm** that combines:
+- **MFEA** (Multi-Factorial Evolutionary Algorithm)
+- **GLS** (Guided Local Search) 
+- **FLS** (Fast Local Search)
+
+This hybrid provides significant improvements over standard MFEA through:
+- **Selective local search enhancement** of elite individuals
+- **Penalty-guided escape** from local optima  
+- **Efficient 2-opt improvement** with activation mechanisms
+- **Preserved multi-task knowledge transfer**
+
+See `/GLS/README.md` for detailed documentation of this innovation.
+
+---
+
+## Standard MFEA Implementation
 
 This repository implements the **Multi-Factorial Evolutionary Algorithm (MFEA)** to solve two optimization problems simultaneously:
 
