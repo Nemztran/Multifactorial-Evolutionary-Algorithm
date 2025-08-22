@@ -1,0 +1,54 @@
+procedure GuidedLocalSearch(S, g, λ, features, costs, M)
+    // Input:
+    //   S: Không gian tìm kiếm (tập hợp các giải pháp khả thi)
+    //   g: Hàm mục tiêu cần tối ưu (ví dụ: tổng độ dài tour trong TSP)
+    //   λ: Tham số điều chỉnh ảnh hưởng của phạt
+    //   features: Danh sách các đặc trưng (features) [I₁, I₂, ..., Iₘ]
+    //   costs: Chi phí của từng đặc trưng [c₁, c₂, ..., cₘ]
+    //   M: Số lượng đặc trưng
+
+    // Khởi tạo
+    k ← 0                                  // Bộ đếm vòng lặp
+    s₀ ← GenerateRandomSolution(S)         // Giải pháp ban đầu (ngẫu nhiên hoặc heuristic)
+    penalties ← [0, 0, ..., 0]            // Mảng phạt khởi tạo bằng 0 (kích thước M)
+    best_solution ← s₀                     // Lưu giải pháp tốt nhất
+
+    while not StoppingCondition() do       // Tiêu chí dừng (số lần lặp, thời gian, hội tụ)
+        // 1. Xây dựng hàm chi phí mở rộng h(s) = g(s) + λ * Σ (penalties[i] * features[i](s))
+        h ← function(solution):
+            total_penalty ← 0
+            for i ← 1 to M do
+                total_penalty ← total_penalty + penalties[i] * features[i](solution)
+            return g(solution) + λ * total_penalty
+
+        // 2. Tìm kiếm cục bộ trên hàm h(s)
+        sₖ ← LocalSearch(s₀, h)           // Áp dụng Local Search (2-Opt/3-Opt/LK...)
+
+        // 3. Tính utility cho các đặc trưng trong giải pháp hiện tại
+        max_utility ← -∞
+        candidates ← []                    // Lưu các đặc trưng có utility cao nhất
+
+        for i ← 1 to M do
+            if features[i](sₖ) == 1 then   // Chỉ xét đặc trưng xuất hiện trong sₖ
+                utility ← costs[i] / (1 + penalties[i])
+                if utility > max_utility then
+                    max_utility ← utility
+                    candidates ← [i]       // Reset danh sách nếu tìm thấy utility lớn hơn
+                else if utility == max_utility then
+                    candidates.append(i)   // Thêm vào danh sách nếu bằng utility max
+
+        // 4. Phạt các đặc trưng có utility cao nhất
+        for each i in candidates do
+            penalties[i] ← penalties[i] + 1
+
+        // 5. Cập nhật giải pháp tốt nhất (theo hàm g ban đầu)
+        if g(sₖ) < g(best_solution) then
+            best_solution ← sₖ
+
+        // 6. Chuẩn bị cho vòng lặp tiếp theo
+        s₀ ← sₖ
+        k ← k + 1
+
+    // Kết thúc: Trả về giải pháp tốt nhất
+    return best_solution
+end procedure
