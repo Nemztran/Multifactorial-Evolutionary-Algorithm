@@ -137,6 +137,6 @@ This project is developed for educational purposes as part of IT3020 - Discrete 
 
 ## Author
 
-[Your Name]  
-[Your University]  
-[Date: August 2025]
+Tran Dinh Nam  
+Hanoi University of Science and Technology 
+22 August 2025
